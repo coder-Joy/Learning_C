@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+//The reason why the struct was now defined out of the main function 
+//was for it to be know through out the whole program
 struct date
 {
 	int day;
@@ -8,6 +10,8 @@ struct date
 	int year;
 };
 
+//This function is use to update the number
+//of days if it's a leap year
 int numberOfDays (struct date d)
 {
 	int days;
@@ -20,6 +24,7 @@ int numberOfDays (struct date d)
 	return days;
 }
 
+//Self descriptive func that does what it says
 bool isLeapYear (struct date d)
 {
 	bool leapYearFlag;
@@ -30,29 +35,40 @@ bool isLeapYear (struct date d)
 	return leapYearFlag;
 }
 
+//Updates tomorrow's date and returns a full struct that consists of it
+struct date dateUpdate(struct date tday)
+{
+	struct date tomorrow;
+
+	if (tday.day != numberOfDays(tday) ) {
+		tomorrow.day = tday.day + 1;
+		tomorrow.month = tday.month;
+		tomorrow.year = tday.year;
+	} else if (tday.month == 12) {
+		tomorrow.day = 1;
+		tomorrow.month = 1;
+		tomorrow.year = tday.year + 1;
+	} else {
+		tomorrow.day = 1;
+		tomorrow.month = tday.month + 1;
+		tomorrow.year = tday.year;
+	}
+
+	return tomorrow; 
+}
+
+//The most important function of the program
 int main()
 {
-	struct date today, tomorrow;
+	struct date today, tomorrowDate;
 	int numberOfDays (struct date d);
+	struct date dateUpdate(struct date tday);
 
 	printf("Enter today's date (dd mm yy) ");
 	scanf("%i%i%i", &today.day, &today.month, &today.year);
 
-	if (today.day != numberOfDays(today) ) {
-		tomorrow.day = today.day + 1;
-		tomorrow.month = today.month;
-		tomorrow.year = today.year;
-	} else if (today.month == 12) {
-		tomorrow.day = 1;
-		tomorrow.month = 1;
-		tomorrow.year = today.year + 1;
-	} else {
-		tomorrow.day = 1;
-		tomorrow.month = today.month + 1;
-		tomorrow.year = today.year;
-	}
-
-	printf("The date of tomorrow is %i/%i/%i \n", tomorrow.day, tomorrow.month, tomorrow.year);
+	tomorrowDate = dateUpdate(today);
+	printf("The date of tomorrow is %i/%i/%i \n", tomorrowDate.day, tomorrowDate.month, tomorrowDate.year);
 
 	return 0;
 }

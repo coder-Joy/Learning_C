@@ -20,6 +20,8 @@ bool equalString(const char str1[], const char str2[]) {
 	return areEqual;
 }
 
+//Uses a normal linear search, but can be very slow for a large amount of data
+//A better alternative is to use binary search
 int lookup(const struct entry dictionary[], const char search[], const int entries){
 	int i;
 	bool equalString( const char s1[], const char s2[]);
